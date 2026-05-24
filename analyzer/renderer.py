@@ -17,7 +17,15 @@ async def _render_async(url: str, use_googlebot: bool, wait_ms: int) -> dict:
     js_resources: list[str] = []
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
+        browser = await p.chromium.launch(
+            headless=True,
+            args=[
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-dev-shm-usage",
+                "--disable-gpu",
+            ],
+        )
         context = await browser.new_context(
             user_agent=ua,
             viewport={"width": 1280, "height": 900},
