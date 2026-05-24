@@ -24,6 +24,15 @@ async def _render_async(url: str, use_googlebot: bool, wait_ms: int) -> dict:
                 "--disable-setuid-sandbox",
                 "--disable-dev-shm-usage",
                 "--disable-gpu",
+                "--no-zygote",
+                "--single-process",
+                "--disable-extensions",
+                "--disable-background-networking",
+                "--disable-sync",
+                "--disable-translate",
+                "--hide-scrollbars",
+                "--mute-audio",
+                "--disable-features=VizDisplayCompositor",
             ],
         )
         context = await browser.new_context(

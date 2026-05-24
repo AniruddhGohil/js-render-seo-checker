@@ -11,15 +11,11 @@ from PIL import Image
 
 @st.cache_resource(show_spinner=False)
 def _install_playwright_browsers():
-    """Install Playwright's Chromium browser once per server session (needed on cloud)."""
-    try:
-        subprocess.run(
-            [sys.executable, "-m", "playwright", "install", "chromium"],
-            check=True,
-            capture_output=True,
-        )
-    except Exception:
-        pass  # Already installed or will surface as a render error
+    """Install Playwright's Chromium + system deps once per server session (needed on cloud)."""
+    subprocess.run(
+        [sys.executable, "-m", "playwright", "install", "chromium", "--with-deps"],
+        capture_output=True,
+    )
 
 
 _install_playwright_browsers()
